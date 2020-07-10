@@ -1,0 +1,33 @@
+function doGet(e){
+
+  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1tMp-j1DtIpS6uCVb5DoTeW3K7OAIgcgm9Ic8YuUnSPE/edit#gid=0");
+  var sheet = ss.getSheetByName("Sheet1");
+ return insert(e,sheet);
+
+
+}
+
+function doPost(e){
+  var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1tMp-j1DtIpS6uCVb5DoTeW3K7OAIgcgm9Ic8YuUnSPE/edit#gid=0");
+  var sheet = ss.getSheetByName("Sheet1");
+  return insert(e,sheet);
+
+}
+
+function insert(e,sheet) {
+
+  var scannedData = e.parameter.sdata;
+  var name = e.parameter.name;
+  var roll = e.parameter.roll;
+  var d = new Date();
+  var ctime =  d.toLocaleString();
+  
+  sheet.appendRow([scannedData,name,roll,ctime]);
+  
+  return ContentService
+  .createTextOutput("Success")
+  .setMimeType(ContentService.MimeType.JAVASCRIPT);  
+
+  
+  
+}
